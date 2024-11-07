@@ -14,7 +14,7 @@ var is_sliding = false
 
 func _ready():
 	collision_shape.shape = RectangleShape2D.new()
-	collision_shape.shape.extents = Vector2(16, 32) 
+	collision_shape.shape.extents = Vector2(16, 38) 
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
@@ -61,15 +61,15 @@ func start_atack_animation() -> void:
 	var orientation = 50 if not $AnimatedSprite2D.flip_h else -50
 	is_atacking = true
 
-	$AnimatedSprite2D.play("atack2")
+	$AnimatedSprite2D.play("atack1")
 
-	change_collision_shape(attack_shape, Vector2(62, 32), Vector2(orientation, original_pos.y))
+	change_collision_shape(attack_shape, Vector2(62, 38), Vector2(orientation, original_pos.y))
 
 	await get_tree().create_timer(ATACK_DURATION).timeout
 
 	is_atacking = false
 
-	change_collision_shape(RectangleShape2D.new(), Vector2(16, 32), original_pos)
+	change_collision_shape(RectangleShape2D.new(), Vector2(16, 38), original_pos)
 
 func start_slide_animation() -> void:
 	var original_pos = collision_shape.position  
@@ -77,13 +77,13 @@ func start_slide_animation() -> void:
 
 	$AnimatedSprite2D.play("slide")
 
-	change_collision_shape(slide_shape, Vector2(32, 16), Vector2(0, 60))
+	change_collision_shape(slide_shape, Vector2(32, 20), Vector2(0, 60))
 
 	await get_tree().create_timer(SLIDE_DURATION).timeout
 	
 	is_sliding = false
 
-	change_collision_shape(RectangleShape2D.new(), Vector2(16, 32), original_pos)
+	change_collision_shape(RectangleShape2D.new(), Vector2(16, 38), original_pos)
 
 func change_collision_shape(new_shape: RectangleShape2D, new_extents: Vector2, new_position: Vector2) -> void:
 	collision_shape.shape = new_shape
